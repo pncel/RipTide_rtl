@@ -6,8 +6,7 @@
 
 module pe_fu #(
     parameter DATA_WIDTH = 32,
-    parameter FU_TYPE = 0                       // 0: Arithmetic, 1: Multiplier, 2: Memory, 3: Control Flow, 4: Stream
-) (
+    ) (
     input  logic clk,                           // 
     input  logic rst_n,                         // 
     
