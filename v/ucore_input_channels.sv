@@ -1,10 +1,11 @@
 // Keith Phou
 
-// RipTide Generic Processing Element (PE)
+// RipTide ucore input channels
 // Based on the paper: "RipTide: A programmable, energy-minimal dataflow compiler and architecture"
-// This module combines the μcore with a functional unit to create a complete PE
+// This module is a part of the ucore
+// 
 
-module pe_ucore #(
+module ucore_input_channels #(
     parameter DATA_WIDTH = 32,
     parameter NUM_INPUTS = 2                                    // Number of input channels
     ) (
