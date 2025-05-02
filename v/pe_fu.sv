@@ -5,7 +5,7 @@
 // This module provides the core computational functionality for PEs
 
 module pe_fu #(
-    parameter DATA_WIDTH = 32,
+    parameter DATA_WIDTH = 32
     ) (
     input  logic clk,                           // 
     input  logic rst_n,                         // 

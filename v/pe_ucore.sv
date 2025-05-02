@@ -5,7 +5,7 @@
 // This module combines the μcore with a functional unit to create a complete PE
 
 module pe_ucore #(
-    parameter DATA_WIDTH = 32,
+    parameter DATA_WIDTH = 32
     ) (
     input  logic clk,                           // 
     input  logic rst_n,                         // 
