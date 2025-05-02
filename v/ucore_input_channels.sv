@@ -3,8 +3,6 @@
 // RipTide ucore input channels
 // Based on the paper: "RipTide: A programmable, energy-minimal dataflow compiler and architecture"
 // This module is a part of the ucore
-// 
-
 module ucore_input_channels #(
     parameter DATA_WIDTH = 32,
     parameter N = 2,                                           // Number of input channels?
