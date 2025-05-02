@@ -46,7 +46,7 @@ module ucore_input_channels #(
         .data_i(noc_in),
         
         // Read side (to output)
-        .v_o(out_valid),                // valid signal to recevier (downstream)
+        .v_o(out_valid),                // valid signal to recevier (downstream) do we need?
         .data_o(out),
         .yumi_i(fifo_yumi)
     );
