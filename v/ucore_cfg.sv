@@ -19,6 +19,7 @@ module cfg_module #(
     output logic [CFG_WIDTH-1:0]  cfg_out,     // Configuration data output (for chaining)
     
     // Interface to Functional Unit (FU)
+    // Constants only one constant 
     output logic [DATA_WIDTH-1:0] constants[CONST_COUNT],  // Constants for computation will get muxed
     output logic [7:0]            cfgd,        // Configuration ID/opcode for the FU
     output logic                  cfg          // Configuration valid/active
@@ -34,6 +35,7 @@ module cfg_module #(
 
     // Send constant data out
     // send config data into the FU
+    // need to do some rewriting
 
     // Configuration registers (cache)
     logic [CFG_WIDTH-1:0] config_cache[CONFIG_CACHE_SIZE];
