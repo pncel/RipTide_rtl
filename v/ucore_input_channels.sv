@@ -14,6 +14,7 @@ module ucore_input_channels #(
     // Input channel
     input  logic noc_ivalid,                                    // Input valid signals from NoC
     input  logic [DATA_WIDTH-1:0] noc_in,                       // Input data from NoC
+    input  logic 
     output logic noc_oready,                                    // Ready signals to NoC
     output logic [DATA_WIDTH-1:0] out                           // Need to find name for the output
 );
@@ -25,11 +26,6 @@ module ucore_input_channels #(
     
     // Set reset for FIFO (active high)
     assign fifo_reset = ~rst_n;
-    
-    // Assume that data is consumed on the next cycle when valid is asserted
-    // This is a simplification without using the full handshaking protocol
-    // Check if this is rigght??
-    assign fifo_yumi = out_valid; 
     
     // Instantiate the FIFO
     bsg_fifo_1r1w_small_hardened #(
