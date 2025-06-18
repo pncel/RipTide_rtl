@@ -18,6 +18,7 @@ module ucore_input_channels_tb;
     logic noc_ivalid;
     logic [DATA_WIDTH-1:0] noc_in;
     logic noc_oready;
+    logic noc_ovalid;
     logic [DATA_WIDTH-1:0] out;
     
     // Instantiate the Unit Under Test (UUT)
@@ -31,6 +32,7 @@ module ucore_input_channels_tb;
         .noc_ivalid(noc_ivalid),
         .noc_in(noc_in),
         .noc_oready(noc_oready),
+        .noc_ovalid(noc_ovalid),
         .out(out)
     );
     
@@ -83,11 +85,11 @@ module ucore_input_channels_tb;
         
         // Wait a few cycles for data to propagate through to output
         repeat(2) @(posedge clk);
-        $display("Data at output: 0x%h", out);
+        $display("Data at output: 0x%h, Valid: %b", out, noc_ovalid);
         @(posedge clk); // Wait one more cycle
         
         // Check the next data value after another cycle
-        $display("Next data value at output: 0x%h", out);
+        $display("Next data value at output: 0x%h, Valid: %b", out, noc_ovalid);
         
         // Test Case 2: FIFO overflow test
         $display("\nTest Case 2: FIFO overflow test");
@@ -109,6 +111,12 @@ module ucore_input_channels_tb;
         // Stop writing
         noc_ivalid = 0;
         
+        // Monitor output for a few cycles
+        repeat(3) begin
+            @(posedge clk);
+            $display("Output: 0x%h, Valid: %b", out, noc_ovalid);
+        end
+        
         // Test Case 3: Reset during operation
         $display("\nTest Case 3: Reset during operation");
         
@@ -119,6 +127,7 @@ module ucore_input_channels_tb;
         rst_n = 0;
         #(CLK_PERIOD*2);
         $display("Reset asserted for %0d clock cycles", 2);
+        $display("During reset - Output: 0x%h, Valid: %b", out, noc_ovalid);
         
         // Release reset and try new operations
         rst_n = 1;
@@ -133,12 +142,22 @@ module ucore_input_channels_tb;
         
         // Wait a few cycles to observe output
         repeat(3) @(posedge clk);
-        $display("After reset, data at output: 0x%h", out);
+        $display("After reset, data at output: 0x%h, Valid: %b", out, noc_ovalid);
         
         // End simulation
         #(CLK_PERIOD*5);
         $display("\nTest completed successfully");
         $finish;
+    end
+    
+    // Monitor for debugging
+    always @(posedge clk) begin
+        if (noc_ivalid && noc_oready) begin
+            $display("Time: %0t - Data written: 0x%h", $time, noc_in);
+        end
+        if (noc_ovalid) begin
+            $display("Time: %0t - Data available at output: 0x%h", $time, out);
+        end
     end
     
     // Dump waveforms

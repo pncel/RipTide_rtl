@@ -16,11 +16,11 @@ module ucore_input_channels #(
     input  logic [DATA_WIDTH-1:0] noc_in,                       // Input data from NoC
     input  logic 
     output logic noc_oready,                                    // Ready signals to NoC
+    logic noc_ovalid,                                          // Valid signal for output data
     output logic [DATA_WIDTH-1:0] out                           // Need to find name for the output
 );
 
     // FIFO Signals
-    logic out_valid;          // Valid signal for output data
     logic fifo_yumi;          // Dequeue signal for FIFO
     logic fifo_reset;         // Reset signal for FIFO
     
@@ -42,7 +42,7 @@ module ucore_input_channels #(
         .data_i(noc_in),
         
         // Read side (to output)
-        .v_o(out_valid),                // valid signal to recevier (downstream) do we need?
+        .v_o(noc_ovalid),                // valid signal to recevier (downstream)
         .data_o(out),
         .yumi_i(fifo_yumi)
     );
